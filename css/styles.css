@@ -1,0 +1,87 @@
+body {
+  font-size: 15px;
+}
+.container {
+  margin: auto;
+  width: calc(60% + 2em);
+  display: grid;
+  grid-template-columns: 1em calc(100% - 2em) 1em;
+  grid-template-rows: auto;
+  grid-template-areas: ". lettersTop ." "numbersLeft board numbersRight" ". lettersBottom .";
+}
+.letters {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+.letters.top {
+  grid-area: lettersTop;
+}
+.letters.bottom {
+  grid-area: lettersBottom;
+}
+.letter {
+  text-align: center;
+}
+.numbers {
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+  align-items: center;
+}
+.numbers.left {
+  grid-area: numbersLeft;
+}
+.numbers.right {
+  grid-area: numbersRight;
+}
+.number {
+  text-align: center;
+}
+.board {
+  grid-area: board;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+.cell {
+  border: 1px solid #fff;
+  text-align: center;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+}
+.cell.w {
+  background: #fff;
+}
+.cell.b {
+  background: #008000;
+}
+.piece.tower {
+  content: url("piezas/torrenegra.jpg");
+  width: 100%;
+  height: auto;
+}
+.piece.horse {
+  content: url("piezas/caballonegro.jpg");
+  width: 100%;
+  height: auto;
+}
+.piece.bishop {
+  content: url("piezas/alfilnegro.jpg");
+  width: 100%;
+  height: auto;
+}
+.piece.king {
+  content: url("piezas/reynegro.jpg");
+  width: 100%;
+  height: auto;
+}
+.piece.queen {
+  content: url("piezas/reinanegro.jpg");
+  width: 100%;
+  height: auto;
+}
+.piece.pawn {
+  content: url("piezas/peonnegro.jpg");
+  width: 100%;
+  height: auto;
+}
