@@ -1,7 +1,9 @@
 boardSize = 60%
 fontSize = 15px
+pieceSize = 80% 
 colorWhites = white
-colorBlacks = green
+colorBlacks = #749173
+hoverColor = #ff0000
 
 body 
   font-size: fontSize
@@ -39,6 +41,7 @@ body
 .board
   grid-area: board
   display: grid
+  grid-gap: 0
   grid-template-columns: repeat(8, 1fr)
   grid-template-rows: repeat(8, 1fr)
 
@@ -48,37 +51,43 @@ body
   width: 100%
   height: 0
   padding-bottom: 100%
+  cursor: pointer
+  size: absolute 
   
   &.w
     background: colorWhites
   &.b
     background: colorBlacks
   
+  
 .piece  
-  &.tower
-    content:url(piezas/torrenegra.jpg)
-    width: 100%
+  width: pieceSize
+  &:hover
+    box-shadow: inset 0px 0 20px hoverColor
+  &.rook
+    content:url(piezas/blackrook.png)
     height auto
-   &.horse
-    content:url(piezas/caballonegro.jpg)
-    width: 100%
+    padding: 'calc((100% - %s) / 2)' %pieceSize
+   &.knight
+    content:url(piezas/blackknight.png)
     height auto
+    padding: 'calc((100% - %s) / 2)' %pieceSize
   &.bishop
-    content:url(piezas/alfilnegro.jpg)
-    width: 100%
+    content:url(piezas/blackbishop.png)
     height auto
+    padding: 'calc((100% - %s) / 2)' %pieceSize
   &.king
-    content:url(piezas/reynegro.jpg)
-    width: 100%
+    content:url(piezas/blackking.png)
     height auto
+    padding: 'calc((100% - %s) / 2)' %pieceSize
   &.queen
-    content:url(piezas/reinanegro.jpg)
-    width: 100%
+    content:url(piezas/blackqueen.png)
     height auto
+    padding: 'calc((100% - %s) / 2)' %pieceSize
   &.pawn
-    content:url(piezas/peonnegro.jpg)
-    width: 100%
+    content:url(piezas/blackpawn.png)
     height auto
+    padding: 'calc((100% - %s) / 2)' %pieceSize
     
   
 

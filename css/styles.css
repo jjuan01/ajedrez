@@ -39,6 +39,7 @@ body {
 .board {
   grid-area: board;
   display: grid;
+  grid-gap: 0;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
 }
@@ -48,40 +49,48 @@ body {
   width: 100%;
   height: 0;
   padding-bottom: 100%;
+  cursor: pointer;
+  size: absolute;
 }
 .cell.w {
   background: #fff;
 }
 .cell.b {
-  background: #008000;
+  background: #749173;
 }
-.piece.tower {
-  content: url("piezas/torrenegra.jpg");
-  width: 100%;
-  height: auto;
+.piece {
+  width: 80%;
 }
-.piece.horse {
-  content: url("piezas/caballonegro.jpg");
-  width: 100%;
+.piece:hover {
+  box-shadow: inset 0px 0 20px #f00;
+}
+.piece.rook {
+  content: url("piezas/blackrook.png");
   height: auto;
+  padding: calc((100% - 80%) / 2);
+}
+.piece.knight {
+  content: url("piezas/blackknight.png");
+  height: auto;
+  padding: calc((100% - 80%) / 2);
 }
 .piece.bishop {
-  content: url("piezas/alfilnegro.jpg");
-  width: 100%;
+  content: url("piezas/blackbishop.png");
   height: auto;
+  padding: calc((100% - 80%) / 2);
 }
 .piece.king {
-  content: url("piezas/reynegro.jpg");
-  width: 100%;
+  content: url("piezas/blackking.png");
   height: auto;
+  padding: calc((100% - 80%) / 2);
 }
 .piece.queen {
-  content: url("piezas/reinanegro.jpg");
-  width: 100%;
+  content: url("piezas/blackqueen.png");
   height: auto;
+  padding: calc((100% - 80%) / 2);
 }
 .piece.pawn {
-  content: url("piezas/peonnegro.jpg");
-  width: 100%;
+  content: url("piezas/blackpawn.png");
   height: auto;
+  padding: calc((100% - 80%) / 2);
 }

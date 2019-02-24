@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/styles.css">
+  
   <title>Chest</title>
 </head>
 <body>
 
+  <button id="btnEmpezar" class="btn-start" onclick="start()">Empezar a jugar!</button>
   <div class="container">
     
     <div class="item letters top">
@@ -33,77 +35,77 @@
         <div class="number">8</div>
     </div>
     <div class="item board">
-      <div class="cell w"><div class="piece tower"></div></div>
-      <div class="cell b"><div class="piece horse"></div></div>
-      <div class="cell w"><div class="piece bishop"></div></div>
-      <div class="cell b"><div class="piece king"></div></div>
-      <div class="cell w"><div class="piece queen"></div></div>
-      <div class="cell b"><div class="piece bishop"></div></div>
-      <div class="cell w"><div class="piece horse"></div></div>
-      <div class="cell b"><div class="piece tower"></div></div>
+      <div class="cell w piece black pawn 1" id="a1"></div>
+      <div class="cell b" id="b1"></div>
+      <div class="cell w" id="c1"></div>
+      <div class="cell b" id="d1"></div>
+      <div class="cell w" id="e1"></div>
+      <div class="cell b" id="f1"></div>
+      <div class="cell w" id="g1"></div>
+      <div class="cell b" id="h1"></div>
 
-      <div class="cell b"><div class="piece pawn"></div></div>
-      <div class="cell w"><div class="piece pawn"></div></div>
-      <div class="cell b"><div class="piece pawn"></div></div>
-      <div class="cell w"><div class="piece pawn"></div></div>
-      <div class="cell b"><div class="piece pawn"></div></div>
-      <div class="cell w"><div class="piece pawn"></div></div>
-      <div class="cell b"><div class="piece pawn"></div></div>
-      <div class="cell w"><div class="piece pawn"></div></div>
+      <div class="cell b" id="a2"></div>
+      <div class="cell w" id="b2"></div>
+      <div class="cell b" id="c2"></div>
+      <div class="cell w" id="d2"></div>
+      <div class="cell b" id="e2"></div>
+      <div class="cell w" id="f2"></div>
+      <div class="cell b" id="g2"></div>
+      <div class="cell w" id="h2"></div>
 
-      <div class="cell w">1</div>
-      <div class="cell b">2</div>
-      <div class="cell w">3</div>
-      <div class="cell b">4</div>
-      <div class="cell w">5</div>
-      <div class="cell b">6</div>
-      <div class="cell w">7</div>
-      <div class="cell b">8</div>
+      <div class="cell w" id="a3">a3</div>
+      <div class="cell b" id="b3">b3</div>
+      <div class="cell w" id="c3">c3</div>
+      <div class="cell b" id="d3">d3</div>
+      <div class="cell w" id="e3">e3</div>
+      <div class="cell b" id="f3">f3</div>
+      <div class="cell w" id="g3">g3</div>
+      <div class="cell b" id="h3">h3</div>
 
-      <div class="cell b">8</div>
-      <div class="cell w">1</div>
-      <div class="cell b">2</div>
-      <div class="cell w">3</div>
-      <div class="cell b">4</div>
-      <div class="cell w">5</div>
-      <div class="cell b">6</div>
-      <div class="cell w">7</div>
+      <div class="cell b" id="a4">a4</div>
+      <div class="cell w piece black rook 1" id="b4">b4</div>
+      <div class="cell b" id="c4">c4</div>
+      <div class="cell w" id="d4">d4</div>
+      <div class="cell b" id="e4">e4</div>
+      <div class="cell w" id="f4">f4</div>
+      <div class="cell b" id="g4">g4</div>
+      <div class="cell w" id="h4">h4</div>
 
-      <div class="cell w">1</div>
-      <div class="cell b">2</div>
-      <div class="cell w">3</div>
-      <div class="cell b">4</div>
-      <div class="cell w">5</div>
-      <div class="cell b">6</div>
-      <div class="cell w">7</div>
-      <div class="cell b">8</div>
+      <div class="cell w" id="a5">a5</div>
+      <div class="cell b" id="b5">b5</div>
+      <div class="cell w" id="c5">c5</div>
+      <div class="cell b" id="d5">d5</div>
+      <div class="cell w" id="e5">e5</div>
+      <div class="cell b" id="f5">f5</div>
+      <div class="cell w" id="g5">g5</div>
+      <div class="cell b" id="h5">h5</div>
 
-      <div class="cell b">8</div>
-      <div class="cell w">1</div>
-      <div class="cell b">2</div>
-      <div class="cell w">3</div>
-      <div class="cell b">4</div>
-      <div class="cell w">5</div>
-      <div class="cell b">6</div>
-      <div class="cell w">7</div>
+      <div class="cell b" id="a6">a6</div>
+      <div class="cell w" id="b6">b6</div>
+      <div class="cell b" id="c6">c6</div>
+      <div class="cell w" id="d6">d6</div>
+      <div class="cell b" id="e6">e6</div>
+      <div class="cell w" id="f6">f6</div>
+      <div class="cell b" id="g6">g6</div>
+      <div class="cell w" id="h6">h6</div>
 
-      <div class="cell w">1</div>
-      <div class="cell b">2</div>
-      <div class="cell w">3</div>
-      <div class="cell b">4</div>
-      <div class="cell w">5</div>
-      <div class="cell b">6</div>
-      <div class="cell w">7</div>
-      <div class="cell b">8</div>
+      <div class="cell w" id="a7">a7</div>
+      <div class="cell b" id="b7">b7</div>
+      <div class="cell w" id="c7">c7</div>
+      <div class="cell b" id="d7">d7</div>
+      <div class="cell w" id="e7">e7</div>
+      <div class="cell b" id="f7">f7</div>
+      <div class="cell w" id="g7">g7</div>
+      <div class="cell b" id="h7">h7</div>
 
-      <div class="cell b">8</div>
-      <div class="cell w">1</div>
-      <div class="cell b">2</div>
-      <div class="cell w">3</div>
-      <div class="cell b">4</div>
-      <div class="cell w">5</div>
-      <div class="cell b">6</div>
-      <div class="cell w">7</div>
+      <div class="cell b" id="a8">a8</div>
+      <div class="cell w" id="b8">b8</div>
+      <div class="cell b" id="c8">c8</div>
+      <div class="cell w" id="d8">d8</div>
+      <div class="cell b" id="e8">e8</div>
+      <div class="cell w" id="f8">f8</div>
+      <div class="cell b" id="g8">g8</div>
+      <div class="cell w" id="h8">h8</div>
       
       
     </div>
@@ -132,5 +134,7 @@
     
   </div>
   
+
+  <script src="js/scripts.js"></script>
 </body>
 </html>
