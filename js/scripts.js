@@ -1,9 +1,9 @@
 
 
 function getCellsWithPieces(){
-  var blackRook1 = document.getElementsByClassName("black rook 1")[0]
-  var blackpawn1 = document.getElementsByClassName("black pawn 1")[0]
-  var pieces = [blackRook1, blackpawn1]
+  let blackRook1 = document.getElementsByClassName("black rook 1")[0]
+  let blackpawn1 = document.getElementsByClassName("black pawn 1")[0]
+  let pieces = [blackRook1, blackpawn1]
 return pieces
 }
 
@@ -28,9 +28,9 @@ class NewMove{
       "queen",
       "pawn",
     ]
-    var pieceToMove
+    let pieceToMove
 
-    var letterToNumbers = new Map()
+    let letterToNumbers = new Map()
       letterToNumbers.set("a", 1)
       letterToNumbers.set("b", 2)
       letterToNumbers.set("c", 3)
@@ -62,10 +62,10 @@ class NewMove{
       case allPieces[0]:
         console.log("TORRE")
         console.log(ev.target.id)
-        var startID = ev.target.id
-        var startLetter = startID[0]
-        var startNumber = parseInt(startID[1], 10)
-        var startLetterInNumber = letterToNumbers.get(startLetter)
+        let startID = ev.target.id
+        let startLetter = startID[0]
+        let startNumber = parseInt(startID[1], 10)
+        let startLetterInNumber = letterToNumbers.get(startLetter)
 
         // console.log(startID)
         // console.log(startLetter)
@@ -73,12 +73,12 @@ class NewMove{
         // console.log(startLetterInNumber)
         
 
-        var posiblePathTop = []
-        var posiblePathBottom = []
-        var posiblePathLeft = []
-        var posiblePathRight = []
+        let posiblePathTop = []
+        let posiblePathBottom = []
+        let posiblePathLeft = []
+        let posiblePathRight = []
 
-        // var canEat
+        // let canEat
 
           let y = [startNumber, startNumber]
           let x = [startLetterInNumber, startLetterInNumber]
@@ -116,16 +116,15 @@ class NewMove{
           console.log(posiblePathRight)
           console.log(posiblePathLeft)
 
-          var posiblePathLeftID = []
-          var posiblePathRightID = []
+          let posiblePathLeftID = []
+          let posiblePathRightID = []
+          //Asigning possible path on left IDs
           for(let i = 0; i < posiblePathLeft.length; i++){
-            // IDToNumbers.get(posiblePathLeft[i])
             posiblePathLeftID.push(letterToNumbers.get(parseInt(posiblePathLeft[i],10)) + startNumber)
             console.log(posiblePathLeftID[i])
           }
-
+          //Asigning possible path on right IDs
           for(let i = 0; i < posiblePathRight.length; i++){
-            // letterToNumbers.get(posiblePathRight[i])
             posiblePathRightID.push(letterToNumbers.get(parseInt(posiblePathRight[i],10)) + startNumber)
             console.log(posiblePathRightID[i])
           }
