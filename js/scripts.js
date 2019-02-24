@@ -1,11 +1,15 @@
+const allPiecesTypes = [
+  "rook", 
+  "knight", 
+  "bishop", 
+  "king",
+  "queen",
+  "pawn",
+]
 
-
-function getCellsWithPieces(){
-  let blackRook1 = document.getElementsByClassName("black rook 1")[0]
-  let blackpawn1 = document.getElementsByClassName("black pawn 1")[0]
-  let pieces = [blackRook1, blackpawn1]
-return pieces
-}
+var colors = new Map()
+colors.set(0, "white")
+colors.set(1, "black")
 
 class NewMove{
 
@@ -15,22 +19,71 @@ class NewMove{
   }
 
   inicializar(){
-    this.pieces = getCellsWithPieces()
+    this.allPieces = []
+    this.pruebaMover = this.pruebaMover.bind(this)
+    this.pieceElementToMove
+    this.pieces = this.getCellsWithPieces()
     this.agregarEventosClickPieces()
   }
 
+
+
+  
+  pruebaMover(){
+    console.log("al fin!")
+  }
+ 
+  getCellsWithPieces(){
+    for(let i = 0; i < allPiecesTypes.length; i++){
+      for(let j = 0; j < colors.size; j++){
+        for(let k = 1; k <= 2; k++){
+          if(allPiecesTypes[i] != "pawn"){
+            let pieceClass = colors.get(j) + " " + allPiecesTypes[i] + " " + k
+            let checkPieceExistance = document.getElementsByClassName(pieceClass)               
+            if(checkPieceExistance.length >= 1){
+              this.allPieces.push(pieceClass)  
+            }
+
+          }
+        }
+        for(let k = 1; k <= 8; k++){
+          if(allPiecesTypes[i] == "pawn"){
+            let pieceClass = colors.get(j) + " " + allPiecesTypes[i] + " " + k
+            let checkPieceExistance = document.getElementsByClassName(pieceClass)            
+            if(checkPieceExistance.length >= 1){
+              this.allPieces.push(pieceClass)  
+            }  
+          }
+        }
+      
+      }
+    }
+    let blackRook1 = document.getElementsByClassName("black rook 1")[0]
+    let blackpawn1 = document.getElementsByClassName("black pawn 1")[0]
+
+    // let whiteRook1 = document.getElementsByClassName("white rook 1")[0]
+    let pieces = [blackRook1, blackpawn1]
+
+    return pieces
+  }
+
+  agregarEventosClickPieces(pieces){
+    for (let i = 0 ; i < this.pieces.length; i++) {
+      document.getElementById(this.pieces[i].id).addEventListener('click', this.move, false ) 
+    }
+    this.pruebaMover()
+  }
+
+  // determinePieceToMove(){
+    
+  // }
+
   move(ev){
     
-    const allPieces = [
-      "rook", 
-      "knight", 
-      "bishop", 
-      "king",
-      "queen",
-      "pawn",
-    ]
+    // this.pruebaMover()
     let pieceToMove
-    let colorPieceToMove
+
+    // let colorPieceToMove
 
     let letterToNumbers = new Map()
       letterToNumbers.set("a", 1)
@@ -50,18 +103,18 @@ class NewMove{
       letterToNumbers.set(7, "g")
       letterToNumbers.set(8, "h")
 
-    window.globalPieceToMove = ev
+    this.pieceElementToMove = ev
 
-    // let pieceToMoveID = ev.target.id
+    // let pieceToMoveID = this.pieceElementToMove.target.id
     // let elementPieceToMove = document.getElementById(pieceToMoveID)
 
     // elementPieceToMove.classList.add('pieceToMove')
 
-    if(ev.srcElement.classList.contains("w")){
+    if(this.pieceElementToMove.srcElement.classList.contains("w")){
       let isWhite = true
       console.log("white")
       console.log(isWhite)
-    }else if(ev.srcElement.classList.contains("b")){
+    }else if(this.pieceElementToMove.srcElement.classList.contains("b")){
       let isBlack = true
       console.log("black")
       console.log(isBlack)
@@ -71,19 +124,19 @@ class NewMove{
     
 
 
-    for(let i = 0; i < allPieces.length; i++){
-      if(ev.srcElement.classList.contains(allPieces[i])){
-        pieceToMove = allPieces[i]
+    for(let i = 0; i < allPiecesTypes.length; i++){
+      if(this.pieceElementToMove.srcElement.classList.contains(allPiecesTypes[i])){
+        pieceToMove = allPiecesTypes[i]
         break
       }
     }
 
     switch(pieceToMove){
-// Rook
-      case allPieces[0]:
+      // Rook
+      case allPiecesTypes[0]:
         console.log("TORRE")
-        console.log(ev.target.id)
-        let startID = ev.target.id
+        console.log(this.pieceElementToMove.target.id)
+        let startID = this.pieceElementToMove.target.id
         let startLetter = startID[0]
         let startNumber = parseInt(startID[1], 10)
         let startLetterInNumber = letterToNumbers.get(startLetter)
@@ -212,20 +265,9 @@ class NewMove{
             cellsInPath[i].classList.add('onPathb')
           }  
         }
-
       break
-    }   
+    }  
   } 
-
-  agregarEventosClickPieces(){
-    
-    for (let i = 0 ; i < this.pieces.length; i++) {
-      console.log(this.pieces[i])
-      console.log(this.pieces[i].id)
-      document.getElementById(this.pieces[i].id).addEventListener('click', this.move, false ) 
-    }
-  }
-
 }
 
 
@@ -233,3 +275,4 @@ class NewMove{
 function start(){
   newMove = new NewMove()
 }
+
