@@ -16,10 +16,11 @@ class NewMove{
 
   inicializar(){
     this.pieces = getCellsWithPieces()
-    this.agregarEventosClick()
+    this.agregarEventosClickPieces()
   }
 
   move(ev){
+    
     const allPieces = [
       "rook", 
       "knight", 
@@ -29,6 +30,7 @@ class NewMove{
       "pawn",
     ]
     let pieceToMove
+    let colorPieceToMove
 
     let letterToNumbers = new Map()
       letterToNumbers.set("a", 1)
@@ -49,6 +51,25 @@ class NewMove{
       letterToNumbers.set(8, "h")
 
     window.globalPieceToMove = ev
+
+    // let pieceToMoveID = ev.target.id
+    // let elementPieceToMove = document.getElementById(pieceToMoveID)
+
+    // elementPieceToMove.classList.add('pieceToMove')
+
+    if(ev.srcElement.classList.contains("w")){
+      let isWhite = true
+      console.log("white")
+      console.log(isWhite)
+    }else if(ev.srcElement.classList.contains("b")){
+      let isBlack = true
+      console.log("black")
+      console.log(isBlack)
+    }
+
+    
+    
+
 
     for(let i = 0; i < allPieces.length; i++){
       if(ev.srcElement.classList.contains(allPieces[i])){
@@ -71,69 +92,132 @@ class NewMove{
         // console.log(startLetter)
         // console.log(startNumber)
         // console.log(startLetterInNumber)
-        
 
-        let posiblePathTop = []
-        let posiblePathBottom = []
-        let posiblePathLeft = []
-        let posiblePathRight = []
+        let possiblePathTopID = []
+        let possiblePathBottomID = []
+        let possiblePathLeftID = []
+        let possiblePathRightID = []
+
+        let cellsInPath = []
+
+        let pieceInPathTop = []
+        let pieceInPathRight = []
+        let pieceInPathBottom = []
+        let pieceInPathLeft = []
+
+        // let pieceInPath = [pieceInPathTop, pieceInPathRight, pieceInPathBottom, pieceInPathLeft]
 
         // let canEat
 
-          let y = [startNumber, startNumber]
-          let x = [startLetterInNumber, startLetterInNumber]
-          
-          for(let j = 0; j < 8; j++){
-//Path in Y
-            if((y[0] - 1) >= 1){
-              let cell = y[0] - 1
-              posiblePathTop.push(cell.toString())
-            }
+        let y = [startNumber, startNumber]
+        let x = [startLetterInNumber, startLetterInNumber]
 
-            if((y[1] + 1) <= 8) {
-              let cell = y[1] + 1
-              posiblePathBottom.push(cell.toString())
-            }
-//Path in x
-            if((x[0] - 1) >= 1){
-              let cell = x[0] - 1
-              posiblePathLeft.push(cell.toString())
-              
-            }
-
-            if((x[1] + 1) <= 8) {
-              let cell = x[1] + 1
-              posiblePathRight.push(cell.toString())
-            }
-            y[0] -= 1
-            y[1] += 1
-
-            x[0] -= 1
-            x[1] += 1
+        for(let j = 0; j < 8; j++){
+        //Path in Y
+          //Top
+          if((y[0] - 1) >= 1){
+            let cell = y[0] - 1
+            //Asigning possible path on top IDs
+            possiblePathTopID.push(startLetter + cell.toString())
           }
-          console.log(posiblePathTop) 
-          console.log(posiblePathBottom)
-          console.log(posiblePathRight)
-          console.log(posiblePathLeft)
-
-          let posiblePathLeftID = []
-          let posiblePathRightID = []
-          //Asigning possible path on left IDs
-          for(let i = 0; i < posiblePathLeft.length; i++){
-            posiblePathLeftID.push(letterToNumbers.get(parseInt(posiblePathLeft[i],10)) + startNumber)
-            console.log(posiblePathLeftID[i])
+          //Bottom
+          if((y[1] + 1) <= 8) {
+            let cell = y[1] + 1
+            //Asigning possible path on bottom IDs
+            possiblePathBottomID.push(startLetter + cell.toString())
           }
-          //Asigning possible path on right IDs
-          for(let i = 0; i < posiblePathRight.length; i++){
-            posiblePathRightID.push(letterToNumbers.get(parseInt(posiblePathRight[i],10)) + startNumber)
-            console.log(posiblePathRightID[i])
+        //Path in x 
+          //left
+          if((x[0] - 1) >= 1){
+            let cell = x[0] - 1
+            //Asigning possible path on left IDs
+            possiblePathLeftID.push(letterToNumbers.get(parseInt(cell.toString(),10)) + startNumber)  
           }
+          //right
+          if((x[1] + 1) <= 8) {
+            let cell = x[1] + 1
+            //Asigning possible path on left IDs
+            possiblePathRightID.push(letterToNumbers.get(parseInt(cell.toString(),10)) + startNumber)
+          }
+          y[0] -= 1
+          y[1] += 1
+          x[0] -= 1
+          x[1] += 1
+        }
 
-        break
+        let longestPath = 0
+        let pathsLengths = []
+        pathsLengths.push(possiblePathTopID.length, possiblePathBottomID.length, possiblePathLeftID.length, possiblePathRightID.length)
+        //Defining the path with more cells
+        for(let i = 0; i < pathsLengths.length; i++){ 
+          if(pathsLengths[i] > longestPath){
+            longestPath = pathsLengths[i]
+          }
+        }
+
+
+        //Array of cells in the path
+        for(let i = 0; i < longestPath; i++){
+          if(possiblePathTopID[i] != undefined){
+            let checkPieces = document.getElementById(possiblePathTopID[i])
+            if(pieceInPathTop.length === 0){
+              if(checkPieces.classList.contains("piece")){
+                pieceInPathTop.push(document.getElementById(possiblePathTopID[i]))
+              }else{
+                cellsInPath.push(document.getElementById(possiblePathTopID[i]))
+              }
+            }
+          }
+          if(possiblePathBottomID[i] != undefined){
+            let checkPieces = document.getElementById(possiblePathBottomID[i])
+            if(pieceInPathBottom.length === 0){
+              if(checkPieces.classList.contains("piece")){
+                pieceInPathBottom.push(document.getElementById(possiblePathBottomID[i]))
+              }else{
+                cellsInPath.push(document.getElementById(possiblePathBottomID[i]))
+              }
+            }
+          }
+          if(possiblePathLeftID[i] != undefined){
+            let checkPieces = document.getElementById(possiblePathLeftID[i])
+            if(pieceInPathLeft.length === 0){
+              if(checkPieces.classList.contains("piece")){
+                pieceInPathLeft.push(document.getElementById(possiblePathLeftID[i]))
+              }else{
+                cellsInPath.push(document.getElementById(possiblePathLeftID[i]))
+              }
+            }
+          }
+          if(possiblePathRightID[i] != undefined){
+            let checkPieces = document.getElementById(possiblePathRightID[i])
+            if(pieceInPathRight.length === 0){
+              if(checkPieces.classList.contains("piece")){
+                pieceInPathRight.push(document.getElementById(possiblePathRightID[i]))
+              }else{
+                cellsInPath.push(document.getElementById(possiblePathRightID[i]))
+              }
+            }
+          }
+        }   
+
+        //Showing path
+        for(let i = 0; i < cellsInPath.length; i++){
+
+          if(cellsInPath[i].classList.contains('w')){
+            cellsInPath[i].classList.remove('w')
+            cellsInPath[i].classList.add('onPathw')
+          }
+          if(cellsInPath[i].classList.contains('b')){
+            cellsInPath[i].classList.remove('b')  
+            cellsInPath[i].classList.add('onPathb')
+          }  
+        }
+
+      break
     }   
   } 
 
-  agregarEventosClick(){
+  agregarEventosClickPieces(){
     
     for (let i = 0 ; i < this.pieces.length; i++) {
       console.log(this.pieces[i])

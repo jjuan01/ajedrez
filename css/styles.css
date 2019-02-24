@@ -60,6 +60,12 @@ body {
 }
 .piece {
   width: 80%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .piece:hover {
   box-shadow: inset 0px 0 20px #f00;
@@ -93,4 +99,10 @@ body {
   content: url("piezas/blackpawn.png");
   height: auto;
   padding: calc((100% - 80%) / 2);
+}
+.onPathw {
+  background: rgba(61,126,154,0.5);
+}
+.onPathb {
+  background: rgba(61,126,154,0.8);
 }
