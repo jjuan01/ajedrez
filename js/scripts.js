@@ -15,12 +15,12 @@ class NewMove{
 
   constructor(){
     this.inicializar = this.inicializar.bind(this)
+    this.pruebaMover = this.pruebaMover.bind(this)
     this.inicializar()
   }
 
   inicializar(){
     this.allPieces = []
-    this.pruebaMover = this.pruebaMover.bind(this)
     this.pieceElementToMove
     this.pieces = this.getCellsWithPieces()
     this.agregarEventosClickPieces()
@@ -78,10 +78,12 @@ class NewMove{
     
   // }
 
-  move(ev){
+  move(event){
     
     // this.pruebaMover()
     let pieceToMove
+
+    this.pruebaMover.bind(this)
 
     // let colorPieceToMove
 
@@ -103,7 +105,7 @@ class NewMove{
       letterToNumbers.set(7, "g")
       letterToNumbers.set(8, "h")
 
-    this.pieceElementToMove = ev
+    this.pieceElementToMove = event
 
     // let pieceToMoveID = this.pieceElementToMove.target.id
     // let elementPieceToMove = document.getElementById(pieceToMoveID)
