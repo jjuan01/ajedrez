@@ -13,23 +13,21 @@ colors.set(1, "black")
 
 class NewMove{
 
+  
   constructor(){
     this.inicializar = this.inicializar.bind(this)
-    this.pruebaMover = this.pruebaMover.bind(this)
-    this.inicializar()
+    this.test = this.test.bind(this)
   }
 
   inicializar(){
+    var self = this
     this.allPieces = []
     this.pieceElementToMove
     this.pieces = this.getCellsWithPieces()
     this.agregarEventosClickPieces()
   }
 
-
-
-  
-  pruebaMover(){
+  test(){
     console.log("al fin!")
   }
  
@@ -71,19 +69,18 @@ class NewMove{
     for (let i = 0 ; i < this.pieces.length; i++) {
       document.getElementById(this.pieces[i].id).addEventListener('click', this.move, false ) 
     }
-    this.pruebaMover()
+    this.test()
   }
 
   // determinePieceToMove(){
-    
   // }
 
   move(event){
     
-    // this.pruebaMover()
+    // this.test()
     let pieceToMove
 
-    this.pruebaMover.bind(this)
+    this.asd()
 
     // let colorPieceToMove
 
