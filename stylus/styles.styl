@@ -70,30 +70,56 @@ body
   user-select: none;
   &:hover
     box-shadow: inset 0px 0 20px hoverColor
-  &.rook
-    content:url(piezas/blackrook.png)
-    height auto
-    padding: 'calc((100% - %s) / 2)' %pieceSize
-   &.knight
-    content:url(piezas/blackknight.png)
-    height auto
-    padding: 'calc((100% - %s) / 2)' %pieceSize
-  &.bishop
-    content:url(piezas/blackbishop.png)
-    height auto
-    padding: 'calc((100% - %s) / 2)' %pieceSize
-  &.king
-    content:url(piezas/blackking.png)
-    height auto
-    padding: 'calc((100% - %s) / 2)' %pieceSize
-  &.queen
-    content:url(piezas/blackqueen.png)
-    height auto
-    padding: 'calc((100% - %s) / 2)' %pieceSize
-  &.pawn
-    content:url(piezas/blackpawn.png)
-    height auto
-    padding: 'calc((100% - %s) / 2)' %pieceSize
+  &.black
+    &.rook
+      content:url(piezas/blackrook.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+    &.knight
+      content:url(piezas/blackknight.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+    &.bishop
+      content:url(piezas/blackbishop.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+    &.king
+      content:url(piezas/blackking.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+    &.queen
+      content:url(piezas/blackqueen.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+    &.pawn
+      content:url(piezas/blackpawn.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+  &.white
+    &.rook
+      content:url(piezas/whiterook.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+    &.knight
+      content:url(piezas/whiteknight.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+    &.bishop
+      content:url(piezas/whitebishop.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+    &.king
+      content:url(piezas/whiteking.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+    &.queen
+      content:url(piezas/whitequeen.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
+    &.pawn
+      content:url(piezas/whitepawn.png)
+      height auto
+      padding: 'calc((100% - %s) / 2)' %pieceSize
 
 
 //Game

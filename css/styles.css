@@ -70,33 +70,63 @@ body {
 .piece:hover {
   box-shadow: inset 0px 0 20px #f00;
 }
-.piece.rook {
+.piece.black.rook {
   content: url("piezas/blackrook.png");
   height: auto;
   padding: calc((100% - 80%) / 2);
 }
-.piece.knight {
+.piece.black.knight {
   content: url("piezas/blackknight.png");
   height: auto;
   padding: calc((100% - 80%) / 2);
 }
-.piece.bishop {
+.piece.black.bishop {
   content: url("piezas/blackbishop.png");
   height: auto;
   padding: calc((100% - 80%) / 2);
 }
-.piece.king {
+.piece.black.king {
   content: url("piezas/blackking.png");
   height: auto;
   padding: calc((100% - 80%) / 2);
 }
-.piece.queen {
+.piece.black.queen {
   content: url("piezas/blackqueen.png");
   height: auto;
   padding: calc((100% - 80%) / 2);
 }
-.piece.pawn {
+.piece.black.pawn {
   content: url("piezas/blackpawn.png");
+  height: auto;
+  padding: calc((100% - 80%) / 2);
+}
+.piece.white.rook {
+  content: url("piezas/whiterook.png");
+  height: auto;
+  padding: calc((100% - 80%) / 2);
+}
+.piece.white.knight {
+  content: url("piezas/whiteknight.png");
+  height: auto;
+  padding: calc((100% - 80%) / 2);
+}
+.piece.white.bishop {
+  content: url("piezas/whitebishop.png");
+  height: auto;
+  padding: calc((100% - 80%) / 2);
+}
+.piece.white.king {
+  content: url("piezas/whiteking.png");
+  height: auto;
+  padding: calc((100% - 80%) / 2);
+}
+.piece.white.queen {
+  content: url("piezas/whitequeen.png");
+  height: auto;
+  padding: calc((100% - 80%) / 2);
+}
+.piece.white.pawn {
+  content: url("piezas/whitepawn.png");
   height: auto;
   padding: calc((100% - 80%) / 2);
 }

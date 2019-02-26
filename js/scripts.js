@@ -72,26 +72,44 @@ class NewMove{
       
       }
     }
+    
     let blackRook1 = document.getElementsByClassName("black rook 1")[0]
+    // let blackRook2 = document.getElementsByClassName("black rook 2")[0]
+
+    // let blackKnight1 = document.getElementsByClassName("black Knight 1")[0]
+    // let blackKnight2 = document.getElementsByClassName("black Knight 2")[0]
+
+    // let blackBishop1 = document.getElementsByClassName("black Bishop 1")[0]
+    // let blackBishop2 = document.getElementsByClassName("black Bishop 2")[0]
+
+    // let blackKing1 = document.getElementsByClassName("black King 1")[0]
+    // let blackKing2 = document.getElementsByClassName("black King 2")[0]
+
+    // let blackQueen1 = document.getElementsByClassName("black Queen 1")[0]
+    // let blackQueen2 = document.getElementsByClassName("black Queen 2")[0]
+
     let blackpawn1 = document.getElementsByClassName("black pawn 1")[0]
 
+
     // let whiteRook1 = document.getElementsByClassName("white rook 1")[0]
+    // let pieces = [blackRook1, blackRook2,blackKnight1, blackKnight2, ,blackBishop1, blackBishop2, blackKing1, blackKing2, blackQueen1, blackQueen2, blackpawn1]
     let pieces = [blackRook1, blackpawn1]
+
+    console.log("this.allPieces")
+    console.log(this.allPieces)
+    console.log("pieces")
+    console.log(pieces)
 
     return pieces
   }
 
   agregarEventosClickPieces(pieces){
     for (let i = 0 ; i < this.pieces.length; i++) {
-      document.getElementById(this.pieces[i].id).addEventListener('click', this.determiningWhatToMove, false) 
+      document.getElementById(this.pieces[i].id).addEventListener('click', this.determinePieceToMove, false) 
     }
   }
 
-  // determinePieceToMove(){
-    
-  // }
-
-  determiningWhatToMove(ev){
+  determinePieceToMove(ev){
     
     // this.pruebaMover()
     let pieceToMove
@@ -110,12 +128,12 @@ class NewMove{
     if(self.pieceElementToMove.srcElement.classList.contains("w")){
       // let isWhite = true
       self.colorPieceToMove = 0
-      // console.log("white")
+      console.log("white")
       // console.log(self.colorPieceToMove)
     }else if(self.pieceElementToMove.srcElement.classList.contains("b")){
       // let isBlack = true
       self.colorPieceToMove = 1
-      // console.log("black")
+      console.log("black")
       // console.log(self.colorPieceToMove)
     }
 
@@ -158,6 +176,8 @@ class NewMove{
     let pieceInPathRight = []
     let pieceInPathBottom = []
     let pieceInPathLeft = []
+
+    let pieceInPath = []
 
     let canEat = []
 
@@ -254,6 +274,22 @@ class NewMove{
         }
       }
     }   
+    let PieceInPathQ = pieceInPathTop.length + pieceInPathRight.length + pieceInPathBottom.length + pieceInPathLeft.length
+    for(let i = 0; i < PieceInPathQ; i++){
+      if(pieceInPathTop[i] != undefined){
+        pieceInPath.push(pieceInPathTop[i])
+      }
+      if(pieceInPathRight[i] != undefined){
+        pieceInPath.push(pieceInPathRight[i])
+      }
+      if(pieceInPathBottom[i] != undefined){
+        pieceInPath.push(pieceInPathBottom[i])
+      }
+      if(pieceInPathLeft[i] != undefined){
+        pieceInPath.push(pieceInPathLeft[i])
+      }
+
+    }
 
     //Showing path
     for(let i = 0; i < cellsInPath.length; i++){
@@ -270,14 +306,27 @@ class NewMove{
 
     // let piecesInPath = 
   
-    for(let i = 0; i < (pieceInPathBottom.length + pieceInPathTop.length + pieceInPathRight.length + pieceInPathLeft.length); i++){
+    console.log(pieceInPath)
+    for(let i = 0; i < (pieceInPath.length); i++){
       switch(colorPieceToMove){
         case 0:
+          // if()
+          // console.log(pieceInPath[i])
           console.log("come negras")
+          if(pieceInPath[i].classList.contains('black')){
+            canEat.push(pieceInPath[i])
+          }
         case 1:
-          console.log("come negras")
+          // if()
+          // console.log(pieceInPath[i])
+          console.log("come blancas")
+          if(pieceInPath[i].classList.contains('white')){
+            canEat.push(pieceInPath[i])
+          }
+
       }
     }
+    console.log(canEat)
   }
 }
 
