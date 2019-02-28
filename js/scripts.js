@@ -160,11 +160,6 @@ class NewMove{
     let startNumber = parseInt(startID[1], 10)
     let startLetterInNumber = letterToNumbers.get(startLetter)
 
-    // console.log(startID)
-    // console.log(startLetter)
-    // console.log(startNumber)
-    // console.log(startLetterInNumber)
-
     let possiblePathTopID = []
     let possiblePathBottomID = []
     let possiblePathLeftID = []
@@ -291,19 +286,6 @@ class NewMove{
 
     }
 
-    //Showing path
-    for(let i = 0; i < cellsInPath.length; i++){
-
-      if(cellsInPath[i].classList.contains('w')){
-        cellsInPath[i].classList.remove('w')
-        cellsInPath[i].classList.add('onPathw')
-      }
-      if(cellsInPath[i].classList.contains('b')){
-        cellsInPath[i].classList.remove('b')  
-        cellsInPath[i].classList.add('onPathb')
-      }  
-    }
-
     // let piecesInPath = 
   
     console.log(pieceInPath)
@@ -327,6 +309,32 @@ class NewMove{
       }
     }
     console.log(canEat)
+
+    //Showing path
+    for(let i = 0; i < cellsInPath.length; i++){
+
+      if(cellsInPath[i].classList.contains('w')){
+        cellsInPath[i].classList.remove('w')
+        cellsInPath[i].classList.add('onPathW')
+        cellsInPath[i].classList.add('selectable')
+      }
+      if(cellsInPath[i].classList.contains('b')){
+        cellsInPath[i].classList.remove('b')  
+        cellsInPath[i].classList.add('onPathB')
+        cellsInPath[i].classList.add('selectable')
+      }  
+    }
+
+    for(let i = 0; i < canEat.length; i++){
+      if(canEat[i].classList.contains('w')){
+        canEat[i].classList.remove('w')
+        canEat[i].classList.add('canBeEaten')
+      }
+      if(canEat[i].classList.contains('b')){
+        canEat[i].classList.remove('b')  
+        canEat[i].classList.add('canBeEaten')
+      }  
+    }
   }
 }
 

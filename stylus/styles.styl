@@ -4,6 +4,9 @@ pieceSize = 80%
 colorWhites = white
 colorBlacks = #749173
 hoverColor = #ff0000
+canBeEatenColor = rgba(181, 104, 104, 0.8)
+onPathWColor = rgba(61, 126, 154, 0.5)
+onPathBColor = rgba(61, 126, 154, 0.8)
 
 body 
   font-size: fontSize
@@ -57,8 +60,7 @@ body
   &.w
     background: colorWhites
   &.b
-    background: colorBlacks
-  
+    background: colorBlacks  
   
 .piece  
   width: pieceSize
@@ -122,17 +124,27 @@ body
       padding: 'calc((100% - %s) / 2)' %pieceSize
 
 
+
+
 //Game
 
 // .pieceToMove
 //   width: 'calc(%s + 5%)' %pieceSize
 
-.onPathw
-  background: rgba(61, 126, 154, 0.5)
+.selectable
+  &:hover
+    box-shadow: inset 0px 0 20px hoverColor
+
+
+.onPathW
+  background: onPathWColor
   
 
-.onPathb
-  background: rgba(61, 126, 154, 0.8)
+.onPathB
+  background: onPathBColor
+
+&.canBeEaten
+  background: canBeEatenColor
     
   
 

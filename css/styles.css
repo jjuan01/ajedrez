@@ -130,9 +130,15 @@ body {
   height: auto;
   padding: calc((100% - 80%) / 2);
 }
-.onPathw {
+.selectable:hover {
+  box-shadow: inset 0px 0 20px #f00;
+}
+.onPathW {
   background: rgba(61,126,154,0.5);
 }
-.onPathb {
+.onPathB {
   background: rgba(61,126,154,0.8);
+}
+.canBeEaten {
+  background: rgba(181,104,104,0.8);
 }
