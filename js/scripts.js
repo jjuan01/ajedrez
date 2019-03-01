@@ -40,11 +40,39 @@ class NewMove{
   inicializar(){
 
     var self = this
-    this.allPieces = []
+    this.allPresentPieces = []
     this.pieceElementToMove
+    this.pieceToMove
     this.colorPieceToMove
+    this.numberPieceToMove
+
+    this.startID
+    this.startLetter
+    this.startNumber
+    this.startLetterInNumber
+
+    //Rook like movement
+    this.possiblePathTopID = []
+    this.possiblePathBottomID = []
+    this.possiblePathLeftID = []
+    this.possiblePathRightID = []
+
+    this.pieceInPathTop = []
+    this.pieceInPathRight = []
+    this.pieceInPathBottom = []
+    this.pieceInPathLeft = []
+    
+    this.cellsInPath = []
+    this.pieceInPath = []
+
+    this.canEat = []
+
+    this.cellToMove
+    this.finalCellTarget
+
+
     this.pieces = this.getCellsWithPieces()
-    this.agregarEventosClickPieces()
+    this.clickEvents()
   }
 
   getCellsWithPieces(){
@@ -55,7 +83,7 @@ class NewMove{
             let pieceClass = colors.get(j) + " " + allPiecesTypes[i] + " " + k
             let checkPieceExistance = document.getElementsByClassName(pieceClass)               
             if(checkPieceExistance.length >= 1){
-              this.allPieces.push(pieceClass)  
+              this.allPresentPieces.push(pieceClass)  
             }
 
           }
@@ -65,7 +93,7 @@ class NewMove{
             let pieceClass = colors.get(j) + " " + allPiecesTypes[i] + " " + k
             let checkPieceExistance = document.getElementsByClassName(pieceClass)            
             if(checkPieceExistance.length >= 1){
-              this.allPieces.push(pieceClass)  
+              this.allPresentPieces.push(pieceClass)  
             }  
           }
         }
@@ -95,56 +123,81 @@ class NewMove{
     // let pieces = [blackRook1, blackRook2,blackKnight1, blackKnight2, ,blackBishop1, blackBishop2, blackKing1, blackKing2, blackQueen1, blackQueen2, blackpawn1]
     let pieces = [blackRook1, blackpawn1]
 
-    console.log("this.allPieces")
-    console.log(this.allPieces)
+    console.log("this.allPresentPieces")
+    console.log(this.allPresentPieces)
     console.log("pieces")
     console.log(pieces)
 
     return pieces
   }
 
-  agregarEventosClickPieces(pieces){
+  clickEvents(pieces){
     for (let i = 0 ; i < this.pieces.length; i++) {
       document.getElementById(this.pieces[i].id).addEventListener('click', this.determinePieceToMove, false) 
+    }
+  }  
+  
+  clickEventsPath(){
+    for (let i = 0 ; i < (this.cellsInPath.length + this.canEat.length); i++) {
+      if(this.cellsInPath[i] != undefined){
+        document.getElementById(this.cellsInPath[i].id).addEventListener('click', this.determiningWhereToMove, false) 
+        console.log(this.cellsInPath[i])
+      }
+      if(this.canEat[i] != undefined){
+        document.getElementById(this.canEat[i].id).addEventListener('click', this.determiningWhereToMove, false) 
+        console.log(this.canEat[i])
+      }
     }
   }
 
   determinePieceToMove(ev){
-    
-    // this.pruebaMover()
-    let pieceToMove
-
-    // let colorPieceToMove
+  
 
     self.pieceElementToMove = ev
-
-    // let pieceToMoveID = self.pieceElementToMove.target.id
-    // let elementPieceToMove = document.getElementById(pieceToMoveID)
-
-    // elementPieceToMove.classList.add('pieceToMove')
-
+    self.startID = self.pieceElementToMove.target.id
+    self.startLetter = startID[0]
+    self.startNumber = parseInt(startID[1], 10)
+    self.startLetterInNumber = letterToNumbers.get(startLetter)
 
     // Determining Color of Piece To Move
     if(self.pieceElementToMove.srcElement.classList.contains("w")){
       // let isWhite = true
       self.colorPieceToMove = 0
-      console.log("white")
       // console.log(self.colorPieceToMove)
     }else if(self.pieceElementToMove.srcElement.classList.contains("b")){
       // let isBlack = true
       self.colorPieceToMove = 1
-      console.log("black")
       // console.log(self.colorPieceToMove)
     }
 
+    //Determining piece type
     for(let i = 0; i < allPiecesTypes.length; i++){
       if(self.pieceElementToMove.srcElement.classList.contains(allPiecesTypes[i])){
-        pieceToMove = allPiecesTypes[i]
+        self.pieceToMove = allPiecesTypes[i]
         break
       }
     }
 
-    switch(pieceToMove){
+    //Determining piece number
+    if(self.pieceElementToMove.srcElement.classList.contains("1")){
+      self.numberPieceToMove = 1
+    }else if(self.pieceElementToMove.srcElement.classList.contains("2")){
+      self.numberPieceToMove = 2
+    }else if(self.pieceElementToMove.srcElement.classList.contains("3")){
+      self.numberPieceToMove = 3
+    }else if(self.pieceElementToMove.srcElement.classList.contains("4")){
+      self.numberPieceToMove = 4
+    }else if(self.pieceElementToMove.srcElement.classList.contains("5")){
+      self.numberPieceToMove = 5
+    }else if(self.pieceElementToMove.srcElement.classList.contains("6")){
+      self.numberPieceToMove = 6
+    }else if(self.pieceElementToMove.srcElement.classList.contains("7")){
+      self.numberPieceToMove = 7
+    }else if(self.pieceElementToMove.srcElement.classList.contains("8")){
+      self.numberPieceToMove = 8
+    }
+
+    switch(self.pieceToMove){
       // Rook
       case allPiecesTypes[0]:
         moveRook()
@@ -154,32 +207,10 @@ class NewMove{
 
   } 
 
-  moveRook(){
-    let startID = self.pieceElementToMove.target.id
-    let startLetter = startID[0]
-    let startNumber = parseInt(startID[1], 10)
-    let startLetterInNumber = letterToNumbers.get(startLetter)
+  moveRook(){ 
 
-    let possiblePathTopID = []
-    let possiblePathBottomID = []
-    let possiblePathLeftID = []
-    let possiblePathRightID = []
-
-    let cellsInPath = []
-
-    let pieceInPathTop = []
-    let pieceInPathRight = []
-    let pieceInPathBottom = []
-    let pieceInPathLeft = []
-
-    let pieceInPath = []
-
-    let canEat = []
-
-    // let pieceInPath = [pieceInPathTop, pieceInPathRight, pieceInPathBottom, pieceInPathLeft]    
-
-    let y = [startNumber, startNumber]
-    let x = [startLetterInNumber, startLetterInNumber]
+    let y = [self.startNumber, self.startNumber]
+    let x = [self.startLetterInNumber, self.startLetterInNumber]
 
     for(let j = 0; j < 8; j++){
       //Path in Y
@@ -187,26 +218,26 @@ class NewMove{
       if((y[0] - 1) >= 1){
         let cell = y[0] - 1
         //Asigning possible path on top IDs
-        possiblePathTopID.push(startLetter + cell.toString())
+        this.possiblePathTopID.push(self.startLetter + cell.toString())
       }
       //Bottom
       if((y[1] + 1) <= 8) {
         let cell = y[1] + 1
         //Asigning possible path on bottom IDs
-        possiblePathBottomID.push(startLetter + cell.toString())
+        this.possiblePathBottomID.push(self.startLetter + cell.toString())
       }
       //Path in x 
       //left
       if((x[0] - 1) >= 1){
         let cell = x[0] - 1
         //Asigning possible path on left IDs
-        possiblePathLeftID.push(letterToNumbers.get(parseInt(cell.toString(),10)) + startNumber)  
+        this.possiblePathLeftID.push(letterToNumbers.get(parseInt(cell.toString(),10)) + self.startNumber)  
       }
       //right
       if((x[1] + 1) <= 8) {
         let cell = x[1] + 1
         //Asigning possible path on left IDs
-        possiblePathRightID.push(letterToNumbers.get(parseInt(cell.toString(),10)) + startNumber)
+        this.possiblePathRightID.push(letterToNumbers.get(parseInt(cell.toString(),10)) + self.startNumber)
       }
       y[0] -= 1
       y[1] += 1
@@ -216,7 +247,7 @@ class NewMove{
 
     let longestPath = 0
     let pathsLengths = []
-    pathsLengths.push(possiblePathTopID.length, possiblePathBottomID.length, possiblePathLeftID.length, possiblePathRightID.length)
+    pathsLengths.push(this.possiblePathTopID.length, this.possiblePathBottomID.length, this.possiblePathLeftID.length, this.possiblePathRightID.length)
 
     //Defining the path with more cells
     for(let i = 0; i < pathsLengths.length; i++){ 
@@ -228,117 +259,174 @@ class NewMove{
 
     //Array of cells in the path
     for(let i = 0; i < longestPath; i++){
-      if(possiblePathTopID[i] != undefined){
-        let checkPieces = document.getElementById(possiblePathTopID[i])
-        if(pieceInPathTop.length === 0){
+      if(this.possiblePathTopID[i] != undefined){
+        let checkPieces = document.getElementById(this.possiblePathTopID[i])
+        if(this.pieceInPathTop.length === 0){
           if(checkPieces.classList.contains("piece")){
-            pieceInPathTop.push(document.getElementById(possiblePathTopID[i]))
+            this.pieceInPathTop.push(document.getElementById(this.possiblePathTopID[i]))
           }else{
-            cellsInPath.push(document.getElementById(possiblePathTopID[i]))
+            this.cellsInPath.push(document.getElementById(this.possiblePathTopID[i]))
             }
         }
       }
-      if(possiblePathBottomID[i] != undefined){
-        let checkPieces = document.getElementById(possiblePathBottomID[i])
-        if(pieceInPathBottom.length === 0){
+      if(this.possiblePathBottomID[i] != undefined){
+        let checkPieces = document.getElementById(this.possiblePathBottomID[i])
+        if(this.pieceInPathBottom.length === 0){
           if(checkPieces.classList.contains("piece")){
-            pieceInPathBottom.push(document.getElementById(possiblePathBottomID[i]))
+            this.pieceInPathBottom.push(document.getElementById(this.possiblePathBottomID[i]))
           }else{
-            cellsInPath.push(document.getElementById(possiblePathBottomID[i]))
+            this.cellsInPath.push(document.getElementById(this.possiblePathBottomID[i]))
           }
         }
       }
-      if(possiblePathLeftID[i] != undefined){
-        let checkPieces = document.getElementById(possiblePathLeftID[i])
-        if(pieceInPathLeft.length === 0){
+      if(this.possiblePathLeftID[i] != undefined){
+        let checkPieces = document.getElementById(this.possiblePathLeftID[i])
+        if(this.pieceInPathLeft.length === 0){
           if(checkPieces.classList.contains("piece")){
-            pieceInPathLeft.push(document.getElementById(possiblePathLeftID[i]))
+            this.pieceInPathLeft.push(document.getElementById(this.possiblePathLeftID[i]))
           }else{
-            cellsInPath.push(document.getElementById(possiblePathLeftID[i]))
+            this.cellsInPath.push(document.getElementById(this.possiblePathLeftID[i]))
           }
         }
       }
-      if(possiblePathRightID[i] != undefined){
-        let checkPieces = document.getElementById(possiblePathRightID[i])
-        if(pieceInPathRight.length === 0){
+      if(this.possiblePathRightID[i] != undefined){
+        let checkPieces = document.getElementById(this.possiblePathRightID[i])
+        if(this.pieceInPathRight.length === 0){
           if(checkPieces.classList.contains("piece")){
-            pieceInPathRight.push(document.getElementById(possiblePathRightID[i]))
+            this.pieceInPathRight.push(document.getElementById(this.possiblePathRightID[i]))
           }else{
-            cellsInPath.push(document.getElementById(possiblePathRightID[i]))
+            this.cellsInPath.push(document.getElementById(this.possiblePathRightID[i]))
           }
         }
       }
     }   
-    let PieceInPathQ = pieceInPathTop.length + pieceInPathRight.length + pieceInPathBottom.length + pieceInPathLeft.length
+    let PieceInPathQ = this.pieceInPathTop.length + this.pieceInPathRight.length + this.pieceInPathBottom.length + this.pieceInPathLeft.length
     for(let i = 0; i < PieceInPathQ; i++){
-      if(pieceInPathTop[i] != undefined){
-        pieceInPath.push(pieceInPathTop[i])
+      if(this.pieceInPathTop[i] != undefined){
+        this.pieceInPath.push(this.pieceInPathTop[i])
       }
-      if(pieceInPathRight[i] != undefined){
-        pieceInPath.push(pieceInPathRight[i])
+      if(this.pieceInPathRight[i] != undefined){
+        this.pieceInPath.push(this.pieceInPathRight[i])
       }
-      if(pieceInPathBottom[i] != undefined){
-        pieceInPath.push(pieceInPathBottom[i])
+      if(this.pieceInPathBottom[i] != undefined){
+        this.pieceInPath.push(this.pieceInPathBottom[i])
       }
-      if(pieceInPathLeft[i] != undefined){
-        pieceInPath.push(pieceInPathLeft[i])
+      if(this.pieceInPathLeft[i] != undefined){
+        this.pieceInPath.push(this.pieceInPathLeft[i])
       }
 
     }
 
-    // let piecesInPath = 
-  
-    console.log(pieceInPath)
-    for(let i = 0; i < (pieceInPath.length); i++){
+    this.showPath()
+    this.determinieIfCanEat()
+    this.showCanEat()
+    this.clickEventsPath()
+  }
+
+  determinieIfCanEat(){
+    for(let i = 0; i < (this.pieceInPath.length); i++){
       switch(colorPieceToMove){
         case 0:
           // if()
-          // console.log(pieceInPath[i])
-          console.log("come negras")
-          if(pieceInPath[i].classList.contains('black')){
-            canEat.push(pieceInPath[i])
+          // console.log(pieceInPath[i]) 
+          if(this.pieceInPath[i].classList.contains('black')){
+            self.canEat.push(self.pieceInPath[i])
           }
         case 1:
           // if()
           // console.log(pieceInPath[i])
-          console.log("come blancas")
-          if(pieceInPath[i].classList.contains('white')){
-            canEat.push(pieceInPath[i])
+          if(this.pieceInPath[i].classList.contains('white')){
+            this.canEat.push(this.pieceInPath[i])
           }
-
       }
     }
-    console.log(canEat)
+    
+  }
 
-    //Showing path
-    for(let i = 0; i < cellsInPath.length; i++){
+  showPath(){
+    for(let i = 0; i < this.cellsInPath.length; i++){
 
-      if(cellsInPath[i].classList.contains('w')){
-        cellsInPath[i].classList.remove('w')
-        cellsInPath[i].classList.add('onPathW')
-        cellsInPath[i].classList.add('selectable')
+      if(this.cellsInPath[i].classList.contains('w')){
+        this.cellsInPath[i].classList.remove('w')
+        this.cellsInPath[i].classList.add('onPathW')
+        this.cellsInPath[i].classList.add('selectable')
       }
-      if(cellsInPath[i].classList.contains('b')){
-        cellsInPath[i].classList.remove('b')  
-        cellsInPath[i].classList.add('onPathB')
-        cellsInPath[i].classList.add('selectable')
-      }  
-    }
-
-    for(let i = 0; i < canEat.length; i++){
-      if(canEat[i].classList.contains('w')){
-        canEat[i].classList.remove('w')
-        canEat[i].classList.add('canBeEaten')
-      }
-      if(canEat[i].classList.contains('b')){
-        canEat[i].classList.remove('b')  
-        canEat[i].classList.add('canBeEaten')
+      if(this.cellsInPath[i].classList.contains('b')){
+        this.cellsInPath[i].classList.remove('b')  
+        this.cellsInPath[i].classList.add('onPathB')
+        this.cellsInPath[i].classList.add('selectable')
       }  
     }
   }
+
+  removePath(){
+    for(let i = 0; i < this.cellsInPath.length; i++){
+
+      if(this.cellsInPath[i].classList.contains('onPathW')){
+        this.cellsInPath[i].classList.remove('onPathW')
+        this.cellsInPath[i].classList.remove('selectable')
+        this.cellsInPath[i].classList.add('w')
+      }
+      if(this.cellsInPath[i].classList.contains('onPathB')){
+        this.cellsInPath[i].classList.remove('onPathB')  
+        this.cellsInPath[i].classList.remove('selectable')
+        this.cellsInPath[i].classList.add('b')
+      }  
+    }
+  }
+
+  showCanEat(){
+    for(let i = 0; i < this.canEat.length; i++){
+      if(this.canEat[i].classList.contains('w')){
+        this.canEat[i].classList.remove('w')
+        this.canEat[i].classList.add('canBeEaten')
+      }
+      if(this.canEat[i].classList.contains('b')){
+        this.canEat[i].classList.remove('b')  
+        this.canEat[i].classList.add('canBeEaten')
+      }  
+    }
+  }
+
+  determiningWhereToMove(ev){
+    
+    removeEventListener()
+
+    self.cellElementToMove = ev
+    self.finalCellTarget = self.cellElementToMove.target
+
+    moveHere()
+    
+  }
+
+  moveHere(){
+
+    this.removePath()
+
+    self.pieceElementToMove.target.classList.remove('piece')
+    self.pieceElementToMove.target.classList.remove(colors.get(self.colorPieceToMove))
+    self.pieceElementToMove.target.classList.remove(self.pieceToMove)
+    self.pieceElementToMove.target.classList.remove(self.numberPieceToMove)
+
+    self.cellElementToMove.target.classList.add('piece')
+    self.cellElementToMove.target.classList.add(colors.get(self.colorPieceToMove))
+    self.cellElementToMove.target.classList.add(self.pieceToMove)
+    self.cellElementToMove.target.classList.add(self.numberPieceToMove)
+  }
+
+  removeEventListener(){
+    for (let i = 0 ; i < (this.cellsInPath.length + this.canEat.length); i++) {
+      if(this.cellsInPath[i] != undefined){
+        document.getElementById(this.cellsInPath[i].id).removeEventListener('click', this.determiningWhereToMove, false) 
+      }
+      if(this.canEat[i] != undefined){
+        document.getElementById(this.canEat[i].id).removeEventListener('click', this.determiningWhereToMove, false) 
+      }
+    }
+  }
+  
+
 }
-
-
 
 
 
@@ -346,7 +434,15 @@ function start(){
   newMove = new NewMove()
 }
 
+function removeEventListener(){
+  newMove.removeEventListener()
+}
+
 function moveRook(){
   newMove.moveRook()
+}
+
+function moveHere(){
+  newMove.moveHere()
 }
 
