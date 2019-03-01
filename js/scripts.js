@@ -123,10 +123,6 @@ class NewMove{
     // let pieces = [blackRook1, blackRook2,blackKnight1, blackKnight2, ,blackBishop1, blackBishop2, blackKing1, blackKing2, blackQueen1, blackQueen2, blackpawn1]
     let pieces = [blackRook1, blackpawn1]
 
-    console.log("this.allPresentPieces")
-    console.log(this.allPresentPieces)
-    console.log("pieces")
-    console.log(pieces)
 
     return pieces
   }
@@ -141,11 +137,11 @@ class NewMove{
     for (let i = 0 ; i < (this.cellsInPath.length + this.canEat.length); i++) {
       if(this.cellsInPath[i] != undefined){
         document.getElementById(this.cellsInPath[i].id).addEventListener('click', this.determiningWhereToMove, false) 
-        console.log(this.cellsInPath[i])
+  
       }
       if(this.canEat[i] != undefined){
         document.getElementById(this.canEat[i].id).addEventListener('click', this.determiningWhereToMove, false) 
-        console.log(this.canEat[i])
+  
       }
     }
   }
@@ -163,11 +159,11 @@ class NewMove{
     if(self.pieceElementToMove.srcElement.classList.contains("w")){
       // let isWhite = true
       self.colorPieceToMove = 0
-      // console.log(self.colorPieceToMove)
+      
     }else if(self.pieceElementToMove.srcElement.classList.contains("b")){
       // let isBlack = true
       self.colorPieceToMove = 1
-      // console.log(self.colorPieceToMove)
+      
     }
 
     //Determining piece type
@@ -328,13 +324,13 @@ class NewMove{
       switch(colorPieceToMove){
         case 0:
           // if()
-          // console.log(pieceInPath[i]) 
+          
           if(this.pieceInPath[i].classList.contains('black')){
             self.canEat.push(self.pieceInPath[i])
           }
         case 1:
           // if()
-          // console.log(pieceInPath[i])
+          
           if(this.pieceInPath[i].classList.contains('white')){
             this.canEat.push(this.pieceInPath[i])
           }
@@ -424,8 +420,6 @@ class NewMove{
       }
     }
   }
-  
-
 }
 
 
