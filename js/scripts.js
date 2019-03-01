@@ -404,10 +404,37 @@ class NewMove{
     self.pieceElementToMove.target.classList.remove(self.pieceToMove)
     self.pieceElementToMove.target.classList.remove(self.numberPieceToMove)
 
-    self.cellElementToMove.target.classList.add('piece')
-    self.cellElementToMove.target.classList.add(colors.get(self.colorPieceToMove))
-    self.cellElementToMove.target.classList.add(self.pieceToMove)
-    self.cellElementToMove.target.classList.add(self.numberPieceToMove)
+    for(let i = 0; i < this.canEat.length; i++){
+      // console.log(this.canEat[i].id)
+      // console.log(self.cellElementToMove.target.id)
+      if(this.canEat[i].id === self.cellElementToMove.target.id){
+        for(let j = 0; j < this.allPresentPieces.length;j++){
+          // console.log("this.allPresentPieces[j]")
+          // console.log(this.allPresentPieces[j])
+          // console.log("this.canEat[i]")
+          // console.log(this.canEat[i])
+          let classList = this.canEat[i].classList
+          console.log(this.canEat[i])
+          console.log(classList)
+          console.log(this.canEat.length)
+          if(this.canEat[i].classList.contains('white pawn')){
+            // console.log("this.allPresentPieces[j]")
+            // console.log(this.allPresentPieces[j])
+            // console.log("this.canEat[i]")
+            // console.log(this.canEat[i])
+          }
+        }
+      }
+    }
+
+  
+
+    // self.cellElementToMove.target.classList.add('piece')
+    // self.cellElementToMove.target.classList.add(colors.get(self.colorPieceToMove))
+    // self.cellElementToMove.target.classList.add(self.pieceToMove)
+    // self.cellElementToMove.target.classList.add(self.numberPieceToMove)
+
+    // console.log(this.canEat)
   }
 
   removeEventListener(){
